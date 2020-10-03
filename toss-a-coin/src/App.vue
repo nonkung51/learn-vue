@@ -1,7 +1,9 @@
 <template>
 	<div id="app">
-		<div class="coin">{{ coinStatus }}</div>
-    <button @click="tossACoin">Toss</button>
+		<div class="coin">{{ coins }}</div>
+		<button v-on:click="tossACoin">Toss</button>
+		<button v-on:click="addCoin">Add coin</button>
+		<button v-on:click="removeCoin">removeCoin</button>
 	</div>
 </template>
 
@@ -9,14 +11,30 @@
 export default {
 	name: 'App',
 	data() {
-		return { coinStatus: 'H' };
-  },
-  methods: {
-    tossACoin () {
-      const hOrT = 'HT';
-      this.coinStatus = hOrT[Math.floor(Math.random() * 2)];
-    }
-  }
+		return { 
+			numberOfCoin: 1,
+			coinStatus: ['H'] 
+		};
+	},
+	computed: {
+		coins() {
+			return this.coinStatus.join();
+		}
+	},
+	methods: {
+		addCoin() {
+			this.numberOfCoin += 1;
+			this.coinStatus.push('H');
+		},
+		removeCoin() {
+			this.numberOfCoin -= 1;
+			this.coinStatus.pop();
+		},
+		tossACoin() {
+			const hOrT = 'HT';
+			this.coinStatus = this.coinStatus.map(() => hOrT[Math.floor(Math.random() * 2)]);
+		},
+	},
 };
 </script>
 
