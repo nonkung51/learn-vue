@@ -12,6 +12,8 @@
 		<button v-on:click="tossACoin">Toss</button>
 		<button v-on:click="addCoin">Add coin</button>
 		<button v-on:click="removeCoin">removeCoin</button>
+		<p>{{ `Tail: ${tails}` }}</p>
+		<p>{{ `Head: ${heads}` }}</p>
 	</div>
 </template>
 
@@ -25,6 +27,12 @@ export default {
 		};
 	},
 	computed: {
+		heads() {
+			return this.coinStatus.filter(cur => cur === 'H').length;
+		},
+		tails() {
+			return this.coinStatus.filter(cur => cur === 'T').length;
+		},
 		coins() {
 			return this.coinStatus.join();
 		},
